@@ -28,12 +28,12 @@ const showImages = (images) => {
             gallery.appendChild(div)
         })
     }
-    showSpinner();
+    spinnerHandle();
 }
 
 const getImages = (query) => {
     const url = `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`;
-    showSpinner();
+    spinnerHandle();
     fetch(url)
         .then(response => response.json())
         .then(data => showImages(data.hits))
@@ -139,24 +139,24 @@ searchBtn.addEventListener('click', function() {
     sliders.length = 0;
 })
 
-// press enter to search image
-const inputField = document.getElementById('search');
-inputField.addEventListener('keypress', e => {
-    if (e.key === 'Enter') {
+
+sliderBtn.addEventListener('click', function() {
+        let duration = document.getElementById('duration').value;
+        if (duration < 0) {
+            alert('Please give a positive value')
+        } else {
+            createSlider();
+        }
+    })
+    // added enter button as an event listener
+document.getElementById('search').addEventListener('keyup', event => {
+    if (event.key === 'Enter') {
         searchBtn.click();
     }
 })
 
-sliderBtn.addEventListener('click', function() {
-    let duration = document.getElementById('duration').value;
-    if (duration < 0) {
-        alert('Please give a positive value')
-    } else {
-        createSlider();
-    }
-})
-
-const showSpinner = () => {
+// spinner
+const spinnerHandle = () => {
     document.getElementById('spinner').classList.toggle('d-none');
     document.querySelector('.gallery').classList.toggle('d-none');
 }
