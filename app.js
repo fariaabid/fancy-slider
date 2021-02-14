@@ -13,7 +13,11 @@ let sliders = [];
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 // show images 
 const showImages = (images) => {
-    if (images.length > 0) {
+    if (images.length == 0) {
+        document.getElementById('errorMessage').innerText = 'Please,enter a valid name';
+        gallery.style.display = 'none';
+    } else if (images.length > 0) {
+        document.getElementById('errorMessage').innerText = '';
         imagesArea.style.display = 'block';
         gallery.innerHTML = '';
         // show gallery title
@@ -33,10 +37,9 @@ const getImages = (query) => {
     fetch(url)
         .then(response => response.json())
         .then(data => showImages(data.hits))
-        .catch(err => {
-            errorMassage.innerHTML = `<h1>Please,provide a valid name.</h1>`;
-        })
+        .catch(err => console.log(err))
 }
+
 let slideIndex = 0;
 const selectItem = (event, img) => {
     let element = event.target;
