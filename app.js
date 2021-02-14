@@ -94,7 +94,7 @@ const createSlider = () => {
                 changeSlide(slideIndex);
             }, duration);
         } else {
-            alert('Please give minimum duration: 1000')
+            alert('Please,give a minimum duration atleast 1000')
         }
     }
     // change slider index 
