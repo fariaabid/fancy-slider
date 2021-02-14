@@ -132,7 +132,7 @@ searchBtn.addEventListener('click', function() {
 sliderBtn.addEventListener('click', function() {
         let duration = document.getElementById('duration').value;
         if (duration < 0) {
-            alert('Please give a positive value')
+            alert('Please,give a positive slider duration')
         } else {
             createSlider();
         }
