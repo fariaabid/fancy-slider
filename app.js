@@ -47,7 +47,7 @@ const selectItem = (event, img) => {
     let element = event.target;
     element.classList.toggle('added');
     let imageCount = 0;
-    const imageCountText = document.getElementById('image-count');
+    const imageCountText = document.getElementById('selected-image-count');
 
     if (element.classList.contains('added')) {
         sliders.push(img);
@@ -123,7 +123,7 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function() {
-    document.getElementById('image-count').innerText = 0;
+    document.getElementById('selected-image-count').innerText = 0;
     document.querySelector('.main').style.display = 'none';
     clearInterval(timer);
     const search = document.getElementById('search');
