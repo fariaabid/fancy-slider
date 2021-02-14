@@ -59,54 +59,49 @@ const selectItem = (event, img) => {
         imageCount = sliders.length;
         imageCountText.innerText = imageCount;
     }
-    // let item = sliders.indexOf(img);
-    // if (item === -1) {
-    //     sliders.push(img);
-    //     element.classList.toggle('added');
-    //     imageCount = sliders.length;
-    //     imageCountText.innerText = imageCount;
-    // } else {
-    //     delete sliders[item];
-    //     element.classList.toggle('added');
-    //     imageCount = sliders.length;
-    //     imageCountText.innerText = imageCount;
-    //     sliders.splice(index, 1);
-    // }
 }
+
 var timer
 const createSlider = () => {
     // check slider image length
     if (sliders.length < 2) {
-        alert('Select at least 2 image.');
+        alert('Select at least 2 image.')
         return;
     }
-    // crate slider previous next area
-    sliderContainer.innerHTML = '';
-    const prevNext = document.createElement('div');
-    prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
-    prevNext.innerHTML = ` 
-  <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
-  <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
-  `;
 
-    sliderContainer.appendChild(prevNext)
-    document.querySelector('.main').style.display = 'block';
-    // hide image aria
-    imagesArea.style.display = 'none';
-    let duration = document.getElementById('duration').value || 1000;
-    sliders.forEach(slide => {
-        let item = document.createElement('div')
-        item.className = "slider-item";
-        item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
-        sliderContainer.appendChild(item);
-    })
-    changeSlide(0)
-    timer = setInterval(function() {
-        slideIndex++;
-        changeSlide(slideIndex);
-    }, duration || 1000);
+    const duration = document.getElementById('duration').value;
+    if (duration >= 1000) {
+        // crate slider previous next area
+        sliderContainer.innerHTML = '';
+        const prevNext = document.createElement('div');
+        prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
+        prevNext.innerHTML = ` 
+      <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
+      <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
+      `;
+
+        sliderContainer.appendChild(prevNext)
+        document.querySelector('.main').style.display = 'block';
+
+        // hide image aria
+        imagesArea.style.display = 'none';
+
+        sliders.forEach(slide => {
+            let item = document.createElement('div')
+            item.className = "slider-item";
+            item.innerHTML = `<img class="w-100"
+          src="${ slide }"
+          alt="">`;
+            sliderContainer.appendChild(item)
+        })
+        changeSlide(0)
+        timer = setInterval(function() {
+            slideIndex++;
+            changeSlide(slideIndex);
+        }, duration);
+    } else {
+        alert('Please put minimum time: 1000!')
+    }
 }
 
 // change slider index 
