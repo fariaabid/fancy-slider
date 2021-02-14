@@ -4,6 +4,7 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const errorMassage = document.getElementById('errorMassage');
 // selected image 
 let sliders = [];
 
@@ -15,10 +16,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-    if (images.length == 0) {
-        document.getElementById('warning').innerText = 'No image found with your query';
-    } else if (images.length > 0) {
-        document.getElementById('warning').innerText = '';
+    if (images.length > 0) {
         imagesArea.style.display = 'block';
         gallery.innerHTML = '';
         // show gallery title
@@ -39,7 +37,9 @@ const getImages = (query) => {
     fetch(url)
         .then(response => response.json())
         .then(data => showImages(data.hits))
-        .catch(err => console.log(err))
+        .catch(err => {
+            errorMassage.innerHTML = `<h1>Please,provide a valid name.</h1>`;
+        })
 }
 
 let slideIndex = 0;
@@ -59,6 +59,19 @@ const selectItem = (event, img) => {
         imageCount = sliders.length;
         imageCountText.innerText = imageCount;
     }
+    // let item = sliders.indexOf(img);
+    // if (item === -1) {
+    //     sliders.push(img);
+    //     element.classList.toggle('added');
+    //     imageCount = sliders.length;
+    //     imageCountText.innerText = imageCount;
+    // } else {
+    //     delete sliders[item];
+    //     element.classList.toggle('added');
+    //     imageCount = sliders.length;
+    //     imageCountText.innerText = imageCount;
+    //     sliders.splice(index, 1);
+    // }
 }
 var timer
 const createSlider = () => {
