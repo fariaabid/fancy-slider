@@ -7,13 +7,10 @@ const sliderContainer = document.getElementById('sliders');
 const errorMassage = document.getElementById('errorMassage');
 // selected image 
 let sliders = [];
-
-
 // If this key doesn't work
 // Find the name in the url and go to their website
 // to create your own api key
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
-
 // show images 
 const showImages = (images) => {
     if (images.length > 0) {
@@ -30,7 +27,6 @@ const showImages = (images) => {
     }
     spinnerHandle();
 }
-
 const getImages = (query) => {
     const url = `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`;
     spinnerHandle();
@@ -41,7 +37,6 @@ const getImages = (query) => {
             errorMassage.innerHTML = `<h1>Please,provide a valid name.</h1>`;
         })
 }
-
 let slideIndex = 0;
 const selectItem = (event, img) => {
     let element = event.target;
@@ -60,56 +55,53 @@ const selectItem = (event, img) => {
         imageCountText.innerText = imageCount;
     }
 }
-
 var timer
 const createSlider = () => {
-    // check slider image length
-    if (sliders.length < 2) {
-        alert('Select at least 2 image.')
-        return;
-    }
+        // check slider image length
+        if (sliders.length < 2) {
+            alert('Select at least 2 image.')
+            return;
+        }
 
-    const duration = document.getElementById('duration').value;
-    if (duration >= 1000) {
-        // crate slider previous next area
-        sliderContainer.innerHTML = '';
-        const prevNext = document.createElement('div');
-        prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
-        prevNext.innerHTML = ` 
+        const duration = document.getElementById('duration').value;
+        if (duration >= 1000) {
+            // crate slider previous next area
+            sliderContainer.innerHTML = '';
+            const prevNext = document.createElement('div');
+            prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
+            prevNext.innerHTML = ` 
       <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
       <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
       `;
 
-        sliderContainer.appendChild(prevNext)
-        document.querySelector('.main').style.display = 'block';
+            sliderContainer.appendChild(prevNext)
+            document.querySelector('.main').style.display = 'block';
 
-        // hide image aria
-        imagesArea.style.display = 'none';
+            // hide image aria
+            imagesArea.style.display = 'none';
 
-        sliders.forEach(slide => {
-            let item = document.createElement('div')
-            item.className = "slider-item";
-            item.innerHTML = `<img class="w-100"
+            sliders.forEach(slide => {
+                let item = document.createElement('div')
+                item.className = "slider-item";
+                item.innerHTML = `<img class="w-100"
           src="${ slide }"
           alt="">`;
-            sliderContainer.appendChild(item)
-        })
-        changeSlide(0)
-        timer = setInterval(function() {
-            slideIndex++;
-            changeSlide(slideIndex);
-        }, duration);
-    } else {
-        alert('Please put minimum time: 1000!')
+                sliderContainer.appendChild(item)
+            })
+            changeSlide(0)
+            timer = setInterval(function() {
+                slideIndex++;
+                changeSlide(slideIndex);
+            }, duration);
+        } else {
+            alert('Please give minimum duration: 1000')
+        }
     }
-}
-
-// change slider index 
+    // change slider index 
 const changeItem = index => {
-    changeSlide(slideIndex += index);
-}
-
-// change slide item
+        changeSlide(slideIndex += index);
+    }
+    // change slide item
 const changeSlide = (index) => {
 
     const items = document.querySelectorAll('.slider-item');
@@ -129,7 +121,6 @@ const changeSlide = (index) => {
 
     items[index].style.display = "block"
 }
-
 searchBtn.addEventListener('click', function() {
     document.getElementById('selected-image-count').innerText = 0;
     document.querySelector('.main').style.display = 'none';
@@ -138,8 +129,6 @@ searchBtn.addEventListener('click', function() {
     getImages(search.value)
     sliders.length = 0;
 })
-
-
 sliderBtn.addEventListener('click', function() {
         let duration = document.getElementById('duration').value;
         if (duration < 0) {
@@ -150,12 +139,11 @@ sliderBtn.addEventListener('click', function() {
     })
     // added enter button as an event listener
 document.getElementById('search').addEventListener('keyup', event => {
-    if (event.key === 'Enter') {
-        searchBtn.click();
-    }
-})
-
-// spinner
+        if (event.key === 'Enter') {
+            searchBtn.click();
+        }
+    })
+    // spinner added
 const spinnerHandle = () => {
     document.getElementById('spinner').classList.toggle('d-none');
     document.querySelector('.gallery').classList.toggle('d-none');
